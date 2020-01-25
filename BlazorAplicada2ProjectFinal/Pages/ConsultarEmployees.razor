@@ -1,0 +1,57 @@
+﻿@page "/Consulta"
+@using BlazorAplicada2ProjectFinal.Data;
+@inject EmployeeServices services
+<h3>Consulta de empleados</h3>
+
+@if(Employees == null)
+{
+    <p><em>Loading.....</em></p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Cedula</th>
+            <th>Nacimiento</th>
+            <th>Salario</th>
+            <th>Fecha de ingreso</th>
+            <th>Telefono</th>
+            <th>Celular</th>
+            <th>Estado Civil</th>
+            <th>Nacionalidad</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Employees)
+        {
+            <tr>
+                <td>@Employees</td>
+                <td>@Employees</td>
+                <td>@Employees.Cedula</td>
+                <td>@Employees.FechaNacimiento</td>
+                <td>@Employees.Salario</td>
+                <td>@Employees.FechaCreacion</td>
+                <td>@Employees.Telefono</td>
+                <td>@Employees.Celular</td>
+                <td>@Employees.EstadoCivil</td>
+                <td>@Employees.Nacionalidad</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+
+@code {
+    private List<Employees> Employees;
+
+    private void Consultar()
+    {
+        Employees = services.GetList(p=>true);
+    }
+
+}

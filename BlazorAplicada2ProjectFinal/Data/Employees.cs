@@ -24,7 +24,6 @@ namespace BlazorAplicada2ProjectFinal.Data
 
         public Employees()
         {
-            EmployeeId = 0;
             Nombres = string.Empty;
             Apellidos = string.Empty;
             Cedula = string.Empty;
