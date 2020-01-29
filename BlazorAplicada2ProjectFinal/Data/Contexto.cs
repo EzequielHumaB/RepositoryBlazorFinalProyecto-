@@ -14,13 +14,7 @@ namespace BlazorAplicada2ProjectFinal.Data
             base.OnConfiguring(optionsBuilder.UseSqlServer(@"Server=DESKTOP-B3FBQ4F;Database=RecursosHumanosWebDB;Trusted_Connection=true"));
         }
 
-
-
-
         public DbSet<Employees> Employees { get; set; }
-
-
-      
 
     }
 }

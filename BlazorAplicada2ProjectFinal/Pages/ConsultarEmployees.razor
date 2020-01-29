@@ -16,6 +16,8 @@
     <p><em>Loading.....</em></p>
 }
 
+
+
 <table class="table">
     <thead>
         <tr>
@@ -70,16 +72,16 @@
 
     BaseRepository<Employees> baseRepository = new BaseRepository<Employees>();
 
+
     protected override async Task OnInitializedAsync()
     {
         Employees = await Task.Run(() => baseRepository.GetList(p => true));
         Consulta();
-
     }
 
     private void Consulta()
     {
-      Employees =  baseRepository.GetList(p => true);
+        Employees =  baseRepository.GetList(p => true);
     }
 
 }

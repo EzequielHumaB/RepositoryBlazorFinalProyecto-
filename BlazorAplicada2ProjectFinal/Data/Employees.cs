@@ -25,6 +25,7 @@ namespace BlazorAplicada2ProjectFinal.Data
         public string Celular { get; set; }
         [Required(ErrorMessage ="El campo Telefono no puede estar vacio")]
         [StringLength(10,ErrorMessage ="El telefono tiene 10 digitos")]
+        [MinLength(10,ErrorMessage ="El telefono debe tener al menos 10 digitos")]
         public string Telefono { get; set; }
         [Required(ErrorMessage ="El campo Salario no puede estar vacio")]
         public decimal Salario { get; set; }
