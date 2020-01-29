@@ -16,17 +16,21 @@ namespace BlazorAplicada2ProjectFinal.Data
         [Required(ErrorMessage ="El campo Apellido no puede estar vacio")]
         public string Apellidos { get; set; }
         [Required(ErrorMessage ="El campo Cedula no puede estar vacio")]
+        [StringLength(11,ErrorMessage ="La cedula tiene 11 digitos")]
         public string Cedula { get; set; }
         [Required(ErrorMessage ="El campo Nacionalidad no puede estar vacio")]
         public string Nacionalidad { get; set; }
         [Required(ErrorMessage ="El campo Celular no puede estar vacio")]
+        [StringLength(10,ErrorMessage ="El celular tiene 10 digitos")]
         public string Celular { get; set; }
         [Required(ErrorMessage ="El campo Telefono no puede estar vacio")]
+        [StringLength(10,ErrorMessage ="El telefono tiene 10 digitos")]
         public string Telefono { get; set; }
         [Required(ErrorMessage ="El campo Salario no puede estar vacio")]
         public decimal Salario { get; set; }
         [Required(ErrorMessage ="El campo Estado Civil no puede estar vacio")]
         public string EstadoCivil { get; set; }
+
         [Required(ErrorMessage ="El campo de Fecha de Nacimiento no puede estar vacio")]
         public DateTime FechaNacimiento { get; set; }
         [Required(ErrorMessage ="El campo Fecha de creacion no puede estar vacio")]
@@ -45,7 +49,7 @@ namespace BlazorAplicada2ProjectFinal.Data
             Nacionalidad = string.Empty;
             Celular = string.Empty;
             Telefono = string.Empty;
-            this.Salario = 20;
+            this.Salario = 0;
             EstadoCivil = string.Empty;
             FechaIngreso = DateTime.Now;
             FechaNacimiento = DateTime.Now;
