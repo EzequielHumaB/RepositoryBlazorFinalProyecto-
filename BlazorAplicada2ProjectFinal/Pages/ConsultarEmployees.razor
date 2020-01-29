@@ -1,9 +1,18 @@
 ﻿@page "/Consulta"
 @using BlazorAplicada2ProjectFinal.Data;
 @inject EmployeeServices services
+
+
+<NavLink class="nav-link" href="Employee">
+    <span class="oi oi-plus" aria-hidden="true"></span>Add new
+
+</NavLink>
+
+
+
 <h3>Consulta de empleados</h3>
 
-@if(Employees == null)
+@if (Employees == null)
 {
     <p><em>Loading.....</em></p>
 }
@@ -11,6 +20,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>Id</th>
             <th>Nombres</th>
             <th>Apellidos</th>
             <th>Cedula</th>
@@ -24,19 +34,29 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(var item in Employees)
+        @foreach (var item in Employees)
         {
             <tr>
-                <td>@Employees</td>
-                <td>@Employees</td>
-                <td>@Employees.Cedula</td>
-                <td>@Employees.FechaNacimiento</td>
-                <td>@Employees.Salario</td>
-                <td>@Employees.FechaCreacion</td>
-                <td>@Employees.Telefono</td>
-                <td>@Employees.Celular</td>
-                <td>@Employees.EstadoCivil</td>
-                <td>@Employees.Nacionalidad</td>
+                <td>@item.EmployeeId</td>
+                <td>@item.Nombres</td>
+                <td>@item.Apellidos</td>
+                <td>@item.Cedula</td>
+                <td>@item.FechaNacimiento</td>
+                <td>@item.Salario</td>
+                <td>@item.FechaIngreso</td>
+                <td>@item.Telefono</td>
+                <td>@item.Celular</td>
+                <td>@item.EstadoCivil</td>
+                <td>@item.Nacionalidad</td>
+                <td>@item.Sexo</td>
+                <td>
+                    <a class="nav-link" href="UpdateEmployee/@item.EmployeeId">
+                        <span class="oi oi-pencil" aria-hidden="true"></span>Edit
+                    </a>
+                    <a class="nav-link" href="DeleteEmployee/@item.EmployeeId">
+                        <span class="oi oi-trash" aria-hidden="true"></span> Delete
+                    </a>
+                </td>
             </tr>
         }
     </tbody>
@@ -47,11 +67,18 @@
 
 
 @code {
-    private List<Employees> Employees;
+    private List<Employees> Employees = new List<Employees>();
 
-    private void Consultar()
+    protected override async Task OnInitializedAsync()
     {
-        Employees = services.GetList(p=>true);
+        Employees = await Task.Run(() => services.GetList(p => true));
+        ConsultaAhora();
+
+    }
+
+    private void ConsultaAhora()
+    {
+      Employees =  services.GetList(p => true);
     }
 
 }

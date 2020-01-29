@@ -4,34 +4,24 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BlazorAplicada2ProjectFinal.Data
 {
     public class EmployeeServices
     {
-
-      
         public bool Crear(Employees employees)
         {
             bool paso = false;
             Contexto contexto = new Contexto();
-            try
-            {
-                if(contexto.Employees.Add(employees)!=null)
-                {
-                    paso = contexto.SaveChanges() > 0;
-                }
-
-            }catch
-            {
-                throw;
-            }
-
+            contexto.Employees.Add(employees);
+            paso = contexto.SaveChanges() > 0;
             return paso;
         }
 
         public bool Actualizar(Employees employees)
         {
+
             Contexto contexto = new Contexto();
             bool paso = false;
 
@@ -61,6 +51,32 @@ namespace BlazorAplicada2ProjectFinal.Data
             }
             return employees;
         }
+
+        public Employees GetEmployeeId(int id)
+        {
+            Contexto contexto = new Contexto();
+            Employees employees = contexto.Employees.FirstOrDefault(s => s.EmployeeId == id);
+            return employees;
+        }
+
+        public bool DeleteEmployee(Employees employees)
+        {
+            Contexto contexto = new Contexto();
+            bool paso = false;
+            try
+            {
+                contexto.Employees.Remove(employees);
+                paso = contexto.SaveChanges() > 0;
+            }
+            catch
+            {
+                throw;
+            }     
+            return paso;
+
+        }
+
+      
 
     }
 }

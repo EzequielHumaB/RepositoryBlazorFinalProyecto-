@@ -3,36 +3,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BlazorAplicada2ProjectFinal.Data
 {
     public class Employees
     {
         [Key]
-        public int EmployeeId { get; set; }
+        public int EmployeeId { get; set; } = 0;
+        [Required(ErrorMessage ="El campo Nombre es requerido")]
         public string Nombres { get; set; }
+        [Required(ErrorMessage ="El campo Apellido no puede estar vacio")]
         public string Apellidos { get; set; }
+        [Required(ErrorMessage ="El campo Cedula no puede estar vacio")]
         public string Cedula { get; set; }
+        [Required(ErrorMessage ="El campo Nacionalidad no puede estar vacio")]
         public string Nacionalidad { get; set; }
+        [Required(ErrorMessage ="El campo Celular no puede estar vacio")]
         public string Celular { get; set; }
+        [Required(ErrorMessage ="El campo Telefono no puede estar vacio")]
         public string Telefono { get; set; }
+        [Required(ErrorMessage ="El campo Salario no puede estar vacio")]
         public decimal Salario { get; set; }
+        [Required(ErrorMessage ="El campo Estado Civil no puede estar vacio")]
         public string EstadoCivil { get; set; }
+        [Required(ErrorMessage ="El campo de Fecha de Nacimiento no puede estar vacio")]
         public DateTime FechaNacimiento { get; set; }
-        public DateTime FechaCreacion { get; set; }
+        [Required(ErrorMessage ="El campo Fecha de creacion no puede estar vacio")]
+        public DateTime FechaIngreso { get; set; }
+
+        [Required(ErrorMessage ="El campo Sexo no puede estar vacio")]
+        public string Sexo { get; set; }
 
 
         public Employees()
         {
+            EmployeeId = 0;
             Nombres = string.Empty;
             Apellidos = string.Empty;
             Cedula = string.Empty;
             Nacionalidad = string.Empty;
             Celular = string.Empty;
             Telefono = string.Empty;
-            Salario = 0;
+            this.Salario = 20;
             EstadoCivil = string.Empty;
-            FechaCreacion = DateTime.Now;
+            FechaIngreso = DateTime.Now;
             FechaNacimiento = DateTime.Now;
         }
     }

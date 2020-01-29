@@ -1,0 +1,90 @@
+﻿@page "/DeleteEmployee/{CurrentId}"
+@using BlazorAplicada2ProjectFinal.Data
+@inject EmployeeServices services
+@inject NavigationManager Navegator
+
+<h3>Eliminar empleados</h3>
+
+<h2>You really want it?</h2>
+<div class="row">
+    <div class="col-md-8">
+        <div class="form-group">
+            <label>Employee Id:</label>
+            <label>@employees.EmployeeId</label>
+        </div>
+
+
+        <div class="form-group">
+            <label>Nombre:</label>
+            <label>@employees.Nombres</label>
+
+        </div>
+        <div class="form-group">
+            <label>Apellidos:</label>
+            <label>@employees.Apellidos</label>
+        </div>
+        <div class="form-group">
+            <label>Cedula:</label>
+            <label>@employees.Cedula</label>
+        </div>
+        <div class="form-group">
+            <label>Fecha Nacimiento:</label>
+            <label>@employees.FechaNacimiento</label>
+        </div>
+        <div class="form-group">
+            <label>Salario:</label>
+            <label>@employees.Salario</label>
+        </div>
+        <div class="form-group">
+            <label>Fecha de creacion:</label>
+            <label>@employees.FechaIngreso</label>
+        </div>
+        <div class="form-group">
+            <label>Fecha de nacimiento:</label>
+            <label>@employees.FechaNacimiento</label>
+        </div>
+        <div class="form-group">
+            <label>Telefono:</label>
+            <label>@employees.Telefono</label>
+        </div>
+        <div class="form-group">
+            <label>Celular:</label>
+            <label>@employees.Celular</label>
+        </div>
+        <div class="form-group">
+            <label>Estado Civil:</label>
+            <label>@employees.EstadoCivil</label>
+        </div>
+        <div class="form-group">
+            <label>Nacionalidad:</label>
+            <label>@employees.Nacionalidad</label>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <input type="button" class="btn btn-danger" @onclick="@Eliminar" value="Delete" />
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string CurrentId { get; set; }
+
+     private Employees employees = new Employees();
+
+    protected override async Task OnInitializedAsync()
+    {
+        employees = await Task.Run(() => services.GetEmployeeId(Convert.ToInt32(CurrentId)));
+    }
+
+    public void Eliminar()
+    {
+        services.DeleteEmployee(employees);
+        Navegator.NavigateTo("Consulta");
+    }
+
+}

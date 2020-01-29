@@ -1,71 +1,84 @@
 ﻿@page "/Employee"
 @using BlazorAplicada2ProjectFinal.Data;
-@inject EmployeeServices sevices
 @inject NavigationManager Navigator 
+@inject EmployeeServices Services
 
 <h3>Creation of Employees</h3>
 
-<div class="row">
-    <div class="col-md-8">
+<EditForm Model="@employees" OnValidSubmit="@Crear">
+    <DataAnnotationsValidator>  </DataAnnotationsValidator>
+
         <div class="form-group">
             <label for="Nombre">Nombres</label>
-            <input id="Nombre" class="form-control" type="text" @bind-value="employees.Nombres" placeholder="Ezequiel" />
+            <InputText @bind-Value="employees.Nombres" class="form-control" placeholder="Ezequiel" />
+            <ValidationMessage For="@(()=>employees.Nombres)" />
         </div>
         <div class="form-group">
-            <label for="Apellidos">Apellidos</label>
-            <input id="Apellidos" class="form-control" type="text" @bind-value="employees.Apellidos" placeholder="Huma Brito" />
+            <label for="Apellido">Apellidos</label>
+            <InputText @bind-Value="employees.Apellidos" class="form-control" placeholder="Garcia"></InputText>
+            <ValidationMessage For="@(()=>employees.Apellidos)"></ValidationMessage>
         </div>
         <div class="form-group">
             <label for="Cedula">Cedula</label>
-            <input id="Cedula" class="form-control" type="text" @bind-value="employees.Cedula" placeholder="402-1331211-1" />
+            <InputText @bind-Value="employees.Cedula" class="form-control">Cedula</InputText>
+            <ValidationMessage For="@(()=>employees.Cedula)"></ValidationMessage>
         </div>
         <div class="form-group">
             <label for="Nacionalidad">Nacionalidad</label>
-            <input id="Nacionalidad" type="text" class="form-control" @bind-value="employees.Nacionalidad" placeholder="Dominicana" />
+            <InputText @bind-Value="employees.Nacionalidad" class="form-control"></InputText>
+            <ValidationMessage For="@(()=>employees.Nacionalidad)"></ValidationMessage>
         </div>
         <div class="form-group">
             <label for="Celular">Celular</label>
-            <input id="Celular" type="tel" class="form-control" @bind-value="employees.Celular" placeholder="849-351-0312" />
+            <InputText @bind-Value="employees.Celular" class="form-control"></InputText>
+            <ValidationMessage For="(()=>employees.Celular)"></ValidationMessage>
         </div>
         <div class="form-group">
             <label for="Telefono">Telefono</label>
-            <input id="Telefono" type="tel" @bind-value="employees.Telefono" class="form-control" placeholder="809-232-1222" />
+            <InputText @bind-Value="employees.Telefono" class="form-control"></InputText>
+            <ValidationMessage For="(()=>employees.Telefono)"></ValidationMessage>
         </div>
+       <div class="form-group">
+           <label for="Salario">Salario</label>
+           <InputNumber @bind-Value="employees.Salario" class="form-control"></InputNumber>
+           <ValidationMessage For="@(()=>employees.Salario)"></ValidationMessage>
+       </div>
+       <div class="form-group">
+           <label for="EstadoCivil">Estado Civil</label>
+           <InputText @bind-Value="employees.EstadoCivil" class="form-control"></InputText>
+           <ValidationMessage For="(()=>employees.EstadoCivil)"></ValidationMessage>
+       </div>
         <div class="form-group">
-            <label for="Salario">Salario</label>
-            <input id="Salario" @bind-value="employees.Salario" class="form-control" type="number" placeholder="1000" />
-        </div>
-        <div class="form-group">
-            <label for="EstadoCivil">Estado Civil</label>
-            <input id="EstadoCivil" @bind-value="employees.EstadoCivil" class="form-control" type="text"/>
+            <label for="Sexo">Sexo</label>
+            <InputText @bind-Value="employees.Sexo" class="form-control"></InputText>
+            <ValidationMessage For="(()=>employees.Sexo)"></ValidationMessage>
         </div>
         <div class="form-group">
             <label for="FechaNacimiento">Fecha de Nacimiento</label>
-            <input type="date" @bind-value="employees.FechaNacimiento" class="form-control"/>
-            \
+            <InputDate @bind-Value="employees.FechaNacimiento" class="form-control"></InputDate>
+            <ValidationMessage For="@(()=>employees.FechaNacimiento)"></ValidationMessage>
         </div>
         <div class="form-group">
             <label for="FechaCreacion">Fecha de Creacion</label>
-            <input type="date" class="form-control" @bind-value="employees.FechaCreacion" placeholder="12-12-2012" />
+            <InputDate @bind-Value="employees.FechaIngreso" class="form-control"></InputDate>
+            <ValidationMessage For="(()=>employees.FechaIngreso)"></ValidationMessage>
         </div>
-    </div>
-</div>
-
-    <div class="form-group">
-        <input type="submit" value="Crear" @onclick="Crear" class="btn btn-primary" />
-    </div>
-
-
-
-
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Crear</button>
+        </div>
+  
+</EditForm>
 
 @code {
-    Employees employees = new Employees();
 
+    BaseRepository<Employees> BaseRepository = new BaseRepository<Employees>();
+
+    Employees employees = new Employees();
+  
     private void Crear()
     {
-        sevices.Crear(employees);
-        Navigator.NavigateTo("Index");
+        BaseRepository.CrearEmployee(employees);
+        employees = new Employees();
+        Navigator.NavigateTo("Consulta");
     }
-
 }
