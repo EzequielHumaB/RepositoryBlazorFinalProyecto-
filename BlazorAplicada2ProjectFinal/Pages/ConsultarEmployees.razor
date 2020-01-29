@@ -1,6 +1,5 @@
 ﻿@page "/Consulta"
 @using BlazorAplicada2ProjectFinal.Data;
-@inject EmployeeServices services
 
 
 <NavLink class="nav-link" href="Employee">
@@ -69,16 +68,18 @@
 @code {
     private List<Employees> Employees = new List<Employees>();
 
+    BaseRepository<Employees> baseRepository = new BaseRepository<Employees>();
+
     protected override async Task OnInitializedAsync()
     {
-        Employees = await Task.Run(() => services.GetList(p => true));
-        ConsultaAhora();
+        Employees = await Task.Run(() => baseRepository.GetList(p => true));
+        Consulta();
 
     }
 
-    private void ConsultaAhora()
+    private void Consulta()
     {
-      Employees =  services.GetList(p => true);
+      Employees =  baseRepository.GetList(p => true);
     }
 
 }

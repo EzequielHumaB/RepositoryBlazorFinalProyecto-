@@ -28,7 +28,6 @@ namespace BlazorAplicada2ProjectFinal
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddScoped<EmployeeServices>();
             services.AddSingleton<WeatherForecastService>();
         }
 

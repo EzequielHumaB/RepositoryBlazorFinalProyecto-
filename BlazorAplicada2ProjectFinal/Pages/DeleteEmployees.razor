@@ -1,6 +1,5 @@
 ﻿@page "/DeleteEmployee/{CurrentId}"
 @using BlazorAplicada2ProjectFinal.Data
-@inject EmployeeServices services
 @inject NavigationManager Navegator
 
 <h3>Eliminar empleados</h3>
@@ -74,16 +73,18 @@
     [Parameter]
     public string CurrentId { get; set; }
 
-     private Employees employees = new Employees();
+    private Employees employees = new Employees();
+
+    BaseRepository<Employees> BaseRepository = new BaseRepository<Employees>();
 
     protected override async Task OnInitializedAsync()
     {
-        employees = await Task.Run(() => services.GetEmployeeId(Convert.ToInt32(CurrentId)));
+        employees = await Task.Run(() => BaseRepository.Buscar(Convert.ToInt32(CurrentId)));
     }
 
     public void Eliminar()
     {
-        services.DeleteEmployee(employees);
+        BaseRepository.Eliminar(employees);
         Navegator.NavigateTo("Consulta");
     }
 

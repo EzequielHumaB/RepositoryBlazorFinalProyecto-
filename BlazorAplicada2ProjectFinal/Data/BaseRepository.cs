@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlazorAplicada2ProjectFinal.Data
 {
@@ -21,9 +22,7 @@ namespace BlazorAplicada2ProjectFinal.Data
         {
             Contexto.Dispose();
         }
-
       
-
         public bool Guardar(T entity)
         {
             
@@ -43,6 +42,37 @@ namespace BlazorAplicada2ProjectFinal.Data
             return paso;
         }
 
+        public bool Modificar(T entity)
+        {
+            bool paso = false;
+            try
+            {
+                Contexto.Entry(entity).State = EntityState.Modified;
+                paso = Contexto.SaveChanges() > 0;
+
+            }
+            catch
+            {
+                throw;
+            }
+            return paso;
+        }
+
+
+        public bool Eliminar(T entity)
+        {
+            bool paso = false;
+            try
+            {
+                Contexto.Entry(entity).State = EntityState.Deleted;
+                paso = Contexto.SaveChanges() > 0;
+            }catch
+            {
+                throw;
+            }
+            return paso;
+
+        }
         public List<T> GetList(Expression<Func<T, bool>> expression)
         {
             List<T> lista = new List<T>();
@@ -58,21 +88,17 @@ namespace BlazorAplicada2ProjectFinal.Data
             return lista;
         }
 
-        public bool CrearEmployee(T entity)
+        public T Buscar(int id)
         {
-            bool paso = false;
-
+            T entity;
             try
             {
-                if(Contexto.Set<T>().Add(entity)!=null)
-                {
-                    paso = Contexto.SaveChanges() > 0;
-                }
+                entity = Contexto.Set<T>().Find(id);
             }catch
             {
                 throw;
             }
-            return paso;
+            return entity;
         }
 
     }
